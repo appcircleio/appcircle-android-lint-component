@@ -16,6 +16,12 @@ ac_module = get_env_variable("AC_MODULE") || abort('Missing module.')
 ac_output_folder = get_env_variable("AC_OUTPUT_DIR") || abort('Missing output folder.')
 
 $exit_status_code = 0
+
+def capitalize_first_char(str) 
+    str[0] = str[0].capitalize
+    return str
+end
+
 def run_command(command, skip_abort)
     puts "@[command] #{command}"
     status = nil
@@ -48,8 +54,8 @@ else
 end
 
 gradle_task = ""
-ac_variants.split(',').each { 
-    | variant | gradle_task << " :#{ac_module}:lint#{variant.capitalize}"
+ac_variants.split('|').each { 
+    | variant | gradle_task << " :#{ac_module}:lint#{capitalize_first_char(variant)}"
 }
 
 run_command("cd #{gradlew_folder_path} && chmod +x ./gradlew && ./gradlew#{gradle_task}", true)
