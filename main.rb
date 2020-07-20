@@ -23,7 +23,7 @@ def capitalize_first_char(str)
 end
 
 def run_command(command, skip_abort)
-    puts "@[command] #{command}"
+    puts "@@[command] #{command}"
     status = nil
     stdout_str = nil
     stderr_str = nil
